@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 import json, requests
@@ -14,7 +15,7 @@ def create_events(request):
         print(request.POST.get("event_name"))
         jsonData = json.dumps(form)
         print(jsonData)
-        urlData = "https://6d08b7f7.ngrok.io/create_events"
+        urlData = "http://35.154.20.226:3000/find_events"
         headers = {'content-type': 'application/json'}
         r = requests.post(urlData, jsonData, headers=headers)
         print(r.status_code)
@@ -23,7 +24,7 @@ def create_events(request):
             'department_branch' : request.POST.get("department_branch")
         }
         return render(request, 'events/eSuccessful.html', {'event': form})
-    return render(request, 'events/createEvent.html')
+    return render(request, 'events/forms.html')
 
 def find_events(request):
     print("requesting list of events")
@@ -31,7 +32,7 @@ def find_events(request):
         'range' : "0_50"
     }
     jsonData = json.dumps(keyDic)
-    urlData = "http://12a7e227.ngrok.io/find_events"
+    urlData = "http://35.154.20.226:3000/find_events"
     headers = {'content-type': 'application/json'}
     r = requests.post(urlData,jsonData, headers=headers)
     print(r.status_code)
@@ -39,12 +40,26 @@ def find_events(request):
         return HttpResponse("Not Found")
     else:
         recievedJsonData = r.text #string obj
-        recievedJsonData = json.loads(recievedJsonData)
+        recievedJsonData_list = json.loads(recievedJsonData)
         # print(type(recD))
-        recievedJsonData = {
-            'data' : recievedJsonData
-        }
-        return render(request, 'events/listEvents.html', recievedJsonData)
+        paginator = Paginator(recievedJsonData_list, 2)
+        page = request.GET.get('page')
+        events = list
+        try:
+            events = paginator.page(page)
+        except PageNotAnInteger:
+            events = paginator.page(1)
+        except EmptyPage:
+            events = paginator.page(paginator.num_pages)
+        return render(request, 'events/listEvents.html', {'events': events})
 
-def delete_events(request):
-    print("Deleteing requests")
+def delete_event(request, event_id):
+    urlData = "http://35.154.20.226:3000/delete_events"
+    headers = {'content-type': 'application/json'}
+    keyDic = {
+        'id' : event_id
+    }
+    jsonData = json.dumps(keyDic)
+    r = requests.post(urlData, jsonData, headers=headers)
+    print(r.status_code)
+    return HttpResponse("Deleteing requests "+ event_id)

@@ -1,2 +1,181 @@
-<h1> list events</h1>
-{{recievedJsonData.created_on}}
+{% load filter_id %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>Admin Panel - Ask-me bot</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    {% load static %}
+    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet" />
+    <!-- FONT AWESOME ICONS  -->
+    <link href="{% static "assets/css/font-awesome.css" %}" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="{% static "assets/css/style.css" %}" rel="stylesheet" />
+     <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!-- HEADER END-->
+    <div class="navbar navbar-inverse set-radius-zero">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">
+
+                    <img src="{% static "assets/img/imageLogo.png" %}" width="200" height="70" />
+                </a>
+
+            </div>
+
+            <div class="left-div">
+                <div class="user-settings-wrapper">
+                    <ul class="nav">
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-settings">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="assets/img/64-64.jpg" alt="" class="img-rounded" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Jhon Deo Alex </h4>
+                                        <h5>Developer & Designer</h5>
+
+                                    </div>
+                                </div>
+                                <hr />
+                                <h5><strong>Personal Bio : </strong></h5>
+                                Anim pariatur cliche reprehen derit.
+                                <hr />
+                                <a href="#" class="btn btn-info btn-sm">Full Profile</a>&nbsp; <a href="login.html" class="btn btn-danger btn-sm">Logout</a>
+
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LOGO HEADER END-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="/findEvent/">Events</a></li>
+                            <li><a href="ui.html">Placement Drive</a></li>
+                            <li><a href="table.html">Admission</a></li>
+                            <li><a href="forms.html">Block Details</a></li>
+                             <li><a href="login.html">Login Page</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- MENU SECTION END-->
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <a class="btn btn-primary" href="/createEvent/">Create New Event</a>
+              </div>
+                <div class="col-md-12">
+                    <h4 class="page-head-line">All Events</h4>
+                </div>
+
+            </div>
+            {% for event in events %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{ event.EventsName }}</h3>
+                </div>
+                <div class="panel-body">
+                  Department : {{ event.department_branch }}
+                </div>
+                <div class="panel-body">
+                  Descriptions : {{ event.event_information }}
+                </div>
+                <div class="panel-body">
+                  id : {{ event|get:"_id" }}
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+            </div>
+            <div class="btn-group-lg" role="group" aria-label="...">
+                <button type="button" class="btn btn-warning">Update</button>
+                <a class="btn btn-danger" href="/deleteEvent/{{ event|get:"_id" }}">Delete Event</a>
+            </div>
+            <br>
+            <br>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- CONTENT-WRAPPER SECTION END-->
+
+    <!-- Pagination start here-->
+    <center>
+    <div class="pagination">
+        <span class="step-links">
+            {% if events.has_previous %}
+                <a href="?page={{ events.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ events.number }} of {{ events.paginator.num_pages }}.
+            </span>
+
+            {% if events.has_next %}
+                <a href="?page={{ events.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+  </center>
+    <!-- Pagination end here-->
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &copy; 2017 AskMe-bot | By : Team-askme
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- FOOTER SECTION END-->
+    <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+    <!-- CORE JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="assets/js/bootstrap.js"></script>
+</body>
+</html>
