@@ -1,4 +1,3 @@
-{% load filter_id %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +8,7 @@
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
-    <title>Admin Panel - Ask-me bot</title>
+    <title>Create Events</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     {% load static %}
     <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet" />
@@ -34,9 +33,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">
-
-                    <img src="{% static "assets/img/imageLogo.png" %}" width="200" height="70" />
+                <a class="navbar-brand" href="index.html">
+                  <img src="{% static "assets/img/imageLogo.png" %}" width="200" height="70" />
                 </a>
 
             </div>
@@ -55,7 +53,7 @@
                                         <img src="assets/img/64-64.jpg" alt="" class="img-rounded" />
                                     </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading">Jhon Deo Alex </h4>
+                                        <h4 class="media-heading">Vipin </h4>
                                         <h5>Developer & Designer</h5>
 
                                     </div>
@@ -82,12 +80,11 @@
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            <li><a href="/findEvent/">Events</a></li>
-                            <li><a href="/findPlacement">Placement Drive</a></li>
+                            <li><a class="menu-top-active" href="/findEvent/">Events</a></li>
+                            <li><a href="/findPlacement">Placement</a></li>
                             <li><a href="/">Admission</a></li>
-                            <li><a href="/">Block Details</a></li>
+                            <li><a href="/">Forms</a></li>
                              <li><a href="/">Login Page</a></li>
-
                         </ul>
                     </div>
                 </div>
@@ -98,74 +95,51 @@
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
         <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <a class="btn btn-primary" href="/createEvent/">Create New Event</a>
-              </div>
-                <div class="col-md-12">
-                    <h4 class="page-head-line">All Events</h4>
+              <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line">Create New placement details1>
+                    </div>
                 </div>
 
-            </div>
-            {% for event in events %}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title">{{ event.EventsName }}</h3>
-                </div>
-                <div class="panel-body">
-                  Department : {{ event.department_branch }}
-                </div>
-                <div class="panel-body">
-                  Venue : {{ event.event_venue }}
-                </div>
-                <div class="panel-body">
-                  Event Date : {{ event.event_date }}
-                </div>
-                <div class="panel-body">
-                  Event Type : {{ event.event_type }}
-                </div>
-                <div class="panel-body">
-                  Descriptions : {{ event.event_information }}
-                </div>
-            </div>
-            <div class="btn-group-lg" role="group" aria-label="...">
-                <button type="button" class="btn btn-warning">Update</button>
-                <a class="btn btn-danger" href="/deleteEvent/{{ event|get:"_id" }}">Delete Event</a>
-            </div>
-            <br>
-            <br>
-            {% endfor %}
-            </div>
-        </div>
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Enter details
+                        </div>
+                        <div class="panel-body">
+                       <form action="" method="post">{% csrf_token %}
+  <div class="form-group">
+    <label for="event_name">Company Name</label>
+    <input type="text" class="form-control" name="companiesPlacement" placeholder="Company Name" />
+  </div>
+  <div class="form-group">
+    <label for="department_branch">For Department</label>
+    <input type="text" class="form-control" name="department_branch" placeholder="Department branch" />
+  </div>
+  <div class="form-group">
+    <label for="event_venue"> Package offered</label>
+    <input type="text" class="form-control" name="packagesOffered" placeholder="package" />
+  </div>
+  <div class="form-group">
+    <label for="policy"> policy</label>
+    <input type="text" class="form-control" name="policy" placeholder="policy" />
+  </div>
+                           <hr />
+                           <hr />
+                           <textarea class="form-control" rows="3" placeholder="Event Descriptions"></textarea>
+                           <hr />
+                           <button type="submit" class="btn btn-default">Submit</button>
+</form>
+                            </div>
+                            </div>
+                    </div>
+
+          </div>
     </div>
-    <!-- CONTENT-WRAPPER SECTION END-->
-
-    <!-- Pagination start here-->
-    <center>
-    <div class="pagination">
-        <span class="step-links">
-            {% if events.has_previous %}
-                <a href="?page={{ events.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ events.number }} of {{ events.paginator.num_pages }}.
-            </span>
-
-            {% if events.has_next %}
-                <a href="?page={{ events.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
-  </center>
-    <!-- Pagination end here-->
-
-
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    &copy; 2017 AskMe-bot | By : Team-askme
+                    &copy; 2017 AskMe-bot | By : <a href="http://facebook.com/vip.bharti" target="_blank">Vipin Bharti</a>
                 </div>
 
             </div>

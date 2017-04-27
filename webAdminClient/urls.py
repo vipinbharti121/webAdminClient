@@ -22,7 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^createEvent/', eventView.create_events),
     url(r'^findEvent', eventView.find_events),
-    url(r'^$', eventView.index),
     url(r'^deleteEvent/(?P<event_id>\w{0,50})/$', eventView.delete_event),
+    url(r'^createPlacement/', eventView.create_placement),
+    url(r'^findPlacement', eventView.find_placement),
+    url(r'^deletePlacement/(?P<placement_id>\w{0,50})/$', eventView.delete_placement),
+    url(r'^$', eventView.index),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
