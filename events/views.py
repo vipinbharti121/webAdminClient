@@ -15,15 +15,18 @@ def create_events(request):
         print(request.POST.get("event_name"))
         jsonData = json.dumps(form)
         print(jsonData)
-        urlData = "http://35.154.20.226:3000/find_events"
+        urlData = "http://35.154.20.226:3000/create_events"
         headers = {'content-type': 'application/json'}
         r = requests.post(urlData, jsonData, headers=headers)
         print(r.status_code)
         event = {
             'EventsName' : request.POST.get("event_name"),
-            'department_branch' : request.POST.get("department_branch")
+            'department_branch' : request.POST.get("department_branch"),
+            'event_information' : request.POST.get("event_information"),
+            'event_type' : request.POST.get("event_type"),
+            'event_venue' : request.POST.get("event_venue"),
         }
-        return render(request, 'events/eSuccessful.html', {'event': form})
+        return render(request, 'events/blank.html')
     return render(request, 'events/forms.html')
 
 def find_events(request):
@@ -62,4 +65,4 @@ def delete_event(request, event_id):
     jsonData = json.dumps(keyDic)
     r = requests.post(urlData, jsonData, headers=headers)
     print(r.status_code)
-    return HttpResponse("Deleteing requests "+ event_id)
+    return render(request, 'events/blank.html')

@@ -80,7 +80,7 @@
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            <li><a class="menu-top-active" href="index.html">Events</a></li>
+                            <li><a class="menu-top-active" href="/findEvent/">Events</a></li>
                             <li><a href="ui.html">Placement</a></li>
                             <li><a href="table.html">Admission</a></li>
                             <li><a href="forms.html">Forms</a></li>
@@ -102,6 +102,39 @@
                         <h1 class="page-head-line">Create New Event</h1>
                     </div>
                 </div>
+
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Enter details
+                        </div>
+                        <div class="panel-body">
+                       <form action="" method="post">{% csrf_token %}
+  <div class="form-group">
+    <label for="event_name">Event Name</label>
+    <input type="text" class="form-control" name="event_name" placeholder="Enter Event Name" />
+  </div>
+  <div class="form-group">
+    <label for="department_branch">Department Branch</label>
+    <input type="text" class="form-control" name="department_branch" placeholder="Department branch" />
+  </div>
+  <div class="form-group">
+    <label for="event_venue"> Event Venue</label>
+    <input type="text" class="form-control" name="event_venue" placeholder="Event Venue" />
+  </div>
+  <div class="form-group">
+    <label for="event_venue"> Event Type</label>
+    <input type="text" class="form-control" name="event_type" placeholder="Event Type" />
+  </div>
+                           <hr />
+                           <hr />
+                           <textarea class="form-control" rows="3" placeholder="Event Descriptions"></textarea>
+                           <hr />
+                           <button type="submit" class="btn btn-default">Submit</button>
+</form>
+                            </div>
+                            </div>
+                    </div>
+
           </div>
     </div>
     <footer>
